@@ -1,0 +1,31 @@
+<?xml version="1.0"?>
+<rdf:RDF xmlns:plib="http://purl.org/plib/dictionary.owl#" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#">
+	<rdf:Description rdf:about="http://data.nxp.com/id/legacy/">
+		<plib:rai>0060-414673376---LEGACY_1_1</plib:rai>
+		<plib:prefix>legacy</plib:prefix>
+		<plib:graph>http://data.nxp.com/graph/legacy/</plib:graph>
+		<plib:def>http://data.nxp.com/def/legacy/</plib:def>
+	</rdf:Description>
+	<rdf:Description rdf:about="http://data.nxp.com/id/spc/">
+		<plib:rai>0060-414673376---SPC_1_1</plib:rai>
+		<plib:prefix>spc</plib:prefix>
+		<plib:graph>http://data.nxp.com/graph/spc/</plib:graph>
+		<plib:def>http://data.nxp.com/def/spc/</plib:def>
+	</rdf:Description>
+	<rdf:Description rdf:about="http://data.nxp.com/id/nxp/">
+		<plib:rai>0060-414673376---NXP_1_1</plib:rai>
+		<plib:prefix>nxp</plib:prefix>
+		<plib:graph>http://data.nxp.com/graph/nxp/</plib:graph>
+		<plib:def>http://data.nxp.com/def/nxp/</plib:def>
+	</rdf:Description>
+	<rdf:Description rdf:about="http://data.nxp.com/id/star/">
+		<plib:rai>0176-13-NXP_STAR</plib:rai>
+		<plib:prefix>star</plib:prefix>
+		<plib:def>http://data.nxp.com/def/star/</plib:def>
+	</rdf:Description>
+	<rdf:Description rdf:about="http://data.nxp.com/id/mddm/">
+		<plib:rai>0060-414673376---MDDM_1_1</plib:rai>
+		<plib:prefix>mddm</plib:prefix>
+		<plib:def>http://data.nxp.com/def/mddm/</plib:def>
+	</rdf:Description>
+</rdf:RDF>
