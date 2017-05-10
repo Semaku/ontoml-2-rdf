@@ -13,7 +13,7 @@
 <xsl:stylesheet version="2.0" xmlns:xsl="http://www.w3.org/1999/XSL/Transform" xmlns:fo="http://www.w3.org/1999/XSL/Format" xmlns:xs="&xsd;" xmlns:fn="http://www.w3.org/2005/xpath-functions" xmlns:rdf="&rdf;" xmlns:rdfs="&rdfs;" xmlns:owl="&owl;" xmlns:skos="&skos;" xmlns:dct="&dct;" xmlns:plib="&plib;" xmlns:qudt="&qudt;" xmlns:schema="&schema;" xmlns:ontoml="urn:iso:std:iso:is:13584:-32:ed-1:tech:xml-schema:ontoml" xmlns:UnitsML="urn:oasis:names:tc:unitsml:schema:xsd:UnitsMLSchema-1.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="urn:oasis:names:tc:unitsml:schema:xsd:UnitsMLSchema-1.0 http://www.paradine.net/schema/dictionary/1.0/unitml/UnitsML-v1.0-csd02.xsd" exclude-result-prefixes="xsl xs fo fn xsi UnitsML">
 	<xsl:import href="irdi2uri.xsl"/>
 	<xsl:output indent="yes"/>
-	<xsl:key name="class-lkp" match="/ontoml:ontoml/dictionary/contained_classes/ontoml:class" use="described_by/property/@property_ref"/>
+	<xsl:key name="unit-lkp" match="/UnitsML:UnitsML/UnitsML:UnitSet/UnitsML:Unit" use="UnitsML:UnitName"/>
 	<!-- root element -->
 	<xsl:template match="UnitsML:UnitsML">
 		<rdf:RDF>
@@ -64,19 +64,49 @@
 		</plib:hasConversion>
 	</xsl:template>
 	<xsl:template match="@divisor">
-		<plib:divisor rdf:datatype="&xsd;double">
+		<plib:divisor rdf:datatype="&xsd;float">
 			<xsl:value-of select="."/>
 		</plib:divisor>
 	</xsl:template>
 	<xsl:template match="@multiplicand">
-		<plib:multiplicand rdf:datatype="&xsd;double">
+		<plib:multiplicand rdf:datatype="&xsd;float">
 			<xsl:value-of select="."/>
 		</plib:multiplicand>
+	</xsl:template>
+	<xsl:template match="@initialUnit">
+		<plib:initialUnit rdf:resource="{ontoml:irdi2defuri(key('unit-lkp',.)/UnitsML:CodeListValue[@codeListName='IRDI']/@unitCodeValue)}"/>
 	</xsl:template>
 	<xsl:template match="UnitsML:QuantityReference">
 		<plib:hasQuantity rdf:resource="{ontoml:irdi2defuri(@url)}"/>
 	</xsl:template>
 	<!-- quantity templates -->
+	<xsl:template match="UnitsML:QuantitySet">
+		<xsl:apply-templates/>
+	</xsl:template>
+	<xsl:template match="UnitsML:Quantity">
+		<plib:Quantity rdf:about="{ontoml:irdi2defuri(UnitsML:QuantitySymbol[@type='IRDI'])}">
+			<xsl:apply-templates select="@*"/>
+			<xsl:apply-templates/>
+		</plib:Quantity>
+	</xsl:template>
+	<xsl:template match="UnitsML:QuantityName">
+		<xsl:if test="@xml:lang='en-US'">
+			<rdfs:label>
+				<xsl:value-of select="."/>
+			</rdfs:label>
+		</xsl:if>
+		<rdfs:label xml:lang="{lower-case(@xml:lang)}">
+			<xsl:value-of select="."/>
+		</rdfs:label>
+	</xsl:template>
+	<xsl:template match="UnitsML:QuantitySymbol[@type='IRDI']">
+		<plib:irdi>
+			<xsl:value-of select="."/>
+		</plib:irdi>
+	</xsl:template>
+	<xsl:template match="UnitsML:UnitReference">
+		<plib:hasUnit rdf:resource="{ontoml:irdi2defuri(@url)}"/>
+	</xsl:template>
 	<!-- dimension templates -->
 	<!-- Ignore all other nodes -->
 	<xsl:template match="node() | @*"/>
