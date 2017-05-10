@@ -107,6 +107,11 @@
 	<xsl:template match="UnitsML:UnitReference">
 		<plib:hasUnit rdf:resource="{ontoml:irdi2defuri(@url)}"/>
 	</xsl:template>
+	<xsl:template match="UnitsML:QuantityDefinition">
+		<skos:definition xml:lang="{lower-case(@xml:lang)}">
+			<xsl:value-of select="."/>
+		</skos:definition>
+	</xsl:template>
 	<!-- dimension templates -->
 	<!-- Ignore all other nodes -->
 	<xsl:template match="node() | @*"/>
