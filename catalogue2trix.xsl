@@ -162,14 +162,14 @@
 		</typedLiteral>
 	</xsl:template>
 	<xsl:template match="val:real_value" mode="object">
-		<plainLiteral>
+		<typedLiteral datatype="&xsd;float">
 			<xsl:value-of select="."/>
-		</plainLiteral>
+		</typedLiteral>
 	</xsl:template>
 	<xsl:template match="val:integer_value" mode="object">
-		<plainLiteral>
+		<typedLiteral datatype="&xsd;integer">
 			<xsl:value-of select="."/>
-		</plainLiteral>
+		</typedLiteral>
 	</xsl:template>
 	<!-- templates to match complex values -->
 	<xsl:template match="val:measure_single_number_value|val:measure_qualified_number_value|val:null_value|val:composite_value|val:measure_range_value" mode="object">
