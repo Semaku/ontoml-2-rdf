@@ -10,7 +10,7 @@
 	<!ENTITY qudt "http://qudt.org/schema/qudt#">
 	<!ENTITY schema "http://schema.org/">
 ]>
-<xsl:stylesheet version="2.0" xmlns:xsl="http://www.w3.org/1999/XSL/Transform" xmlns:fo="http://www.w3.org/1999/XSL/Format" xmlns:xs="&xsd;" xmlns:fn="http://www.w3.org/2005/xpath-functions" xmlns:rdf="&rdf;" xmlns:rdfs="&rdfs;" xmlns:owl="&owl;" xmlns:skos="&skos;" xmlns:dct="&dct;" xmlns:plib="&plib;" xmlns:qudt="&qudt;" xmlns:schema="&schema;" xmlns:ontoml="urn:iso:std:iso:is:13584:-32:ed-1:tech:xml-schema:ontoml" xmlns:UnitsML="urn:oasis:names:tc:unitsml:schema:xsd:UnitsMLSchema-1.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="urn:oasis:names:tc:unitsml:schema:xsd:UnitsMLSchema-1.0 http://www.paradine.net/schema/dictionary/1.0/unitml/UnitsML-v1.0-csd02.xsd" exclude-result-prefixes="xsl xs fo fn xsi UnitsML">
+<xsl:stylesheet version="2.0" xmlns:xsl="http://www.w3.org/1999/XSL/Transform" xmlns:fo="http://www.w3.org/1999/XSL/Format" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:fn="http://www.w3.org/2005/xpath-functions" xmlns:rdf="&rdf;" xmlns:rdfs="&rdfs;" xmlns:owl="&owl;" xmlns:skos="&skos;" xmlns:dct="&dct;" xmlns:plib="&plib;" xmlns:qudt="&qudt;" xmlns:schema="&schema;" xmlns:ontoml="urn:iso:std:iso:is:13584:-32:ed-1:tech:xml-schema:ontoml" xmlns:UnitsML="urn:oasis:names:tc:unitsml:schema:xsd:UnitsMLSchema-1.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="urn:oasis:names:tc:unitsml:schema:xsd:UnitsMLSchema-1.0 http://www.paradine.net/schema/dictionary/1.0/unitml/UnitsML-v1.0-csd02.xsd" exclude-result-prefixes="xsl xs fo fn xsi UnitsML">
 	<xsl:import href="irdi2uri.xsl"/>
 	<xsl:output indent="yes"/>
 	<xsl:key name="unit-lkp" match="/UnitsML:UnitsML/UnitsML:UnitSet/UnitsML:Unit" use="UnitsML:UnitName"/>
@@ -64,13 +64,13 @@
 		</plib:hasConversion>
 	</xsl:template>
 	<xsl:template match="@divisor">
-		<plib:divisor rdf:datatype="&xsd;float">
-			<xsl:value-of select="."/>
+		<plib:divisor rdf:datatype="&xsd;decimal">
+			<xsl:value-of select="xs:decimal(number(.))"/>
 		</plib:divisor>
 	</xsl:template>
 	<xsl:template match="@multiplicand">
-		<plib:multiplicand rdf:datatype="&xsd;float">
-			<xsl:value-of select="."/>
+		<plib:multiplicand rdf:datatype="&xsd;decimal">
+			<xsl:value-of select="xs:decimal(number(.))"/>
 		</plib:multiplicand>
 	</xsl:template>
 	<xsl:template match="@initialUnit">
